@@ -45,7 +45,7 @@ i utilize a `Map` to improve performance where it basically reduce the number of
 
 ### Reflections 5
 
-1 **What is the difference between the approach of performance testing with JMeter and profiling with IntelliJ Profiler in the context of optimizing application performance?**
+1. **What is the difference between the approach of performance testing with JMeter and profiling with IntelliJ Profiler in the context of optimizing application performance?**
 
 JMeter simulates multiple users accessing the application simultaneously, focusing on load testing, while IntelliJ Profiler analyzes the application's performance at a code level, identifying bottlenecks and optimizing execution time.
 
@@ -74,4 +74,6 @@ In such situations, it is important to analyze the results from both tools and i
 Optimization involves leveraging past knowledge in data structures and algorithms. Techniques such as algorithm improvements or loop optimizations are implemented, ensuring changes maintain application functionality.
 
 
+## Contributors
 
+- [Revady Hafizhy Mukhtar](https://github.com/Revaldyhfz)
