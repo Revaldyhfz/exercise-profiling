@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author muhammad.khadafi
@@ -23,18 +25,29 @@ public class StudentService {
     @Autowired
     private StudentCourseRepository studentCourseRepository;
 
+
     public List<StudentCourse> getAllStudentsWithCourses() {
+
         List<Student> students = studentRepository.findAll();
+        List<StudentCourse> allStudentCourses = studentCourseRepository.findAll();
+
+        Map<Long, List<StudentCourse>> studentCourseMap = new HashMap<>();
+
+        for (StudentCourse studentCourse : allStudentCourses) {
+            Long studentId = studentCourse.getStudent().getId();
+            studentCourseMap.computeIfAbsent(studentId, k -> new ArrayList<>()).add(studentCourse);
+        }
+
         List<StudentCourse> studentCourses = new ArrayList<>();
+
         for (Student student : students) {
-            List<StudentCourse> studentCoursesByStudent = studentCourseRepository.findByStudentId(student.getId());
+            List<StudentCourse> studentCoursesByStudent = studentCourseMap.getOrDefault(student.getId(), new ArrayList<>());
             for (StudentCourse studentCourseByStudent : studentCoursesByStudent) {
-                StudentCourse studentCourse = new StudentCourse();
-                studentCourse.setStudent(student);
-                studentCourse.setCourse(studentCourseByStudent.getCourse());
-                studentCourses.add(studentCourse);
+                studentCourseByStudent.setStudent(student);
+                studentCourses.add(studentCourseByStudent);
             }
         }
+
         return studentCourses;
     }
 
